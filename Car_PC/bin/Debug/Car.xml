@@ -1,0 +1,7 @@
+
+<ControlConfig>
+  <ServerIP>134.100.100.105</ServerIP>
+  <ServerPort>2001</ServerPort>
+  <VideoURL>http://134.100.100.105:8083/?action=stream</VideoURL>
+  <TurnSpeed>200</TurnSpeed>
+</ControlConfig>

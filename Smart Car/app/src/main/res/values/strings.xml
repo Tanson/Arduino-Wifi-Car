@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Wifi Controlled Car</string>
+    <string name="action_settings">Settings</string>
+    <string name="devices">Network:</string>
+    <string name="wifi">Wifi</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+    <string name="refresh">Refresh</string>
+    <string name="photoDescription">Last image received from the car</string>
+    <string name="networkLbl">Looking for network name...</string>
+    <string name="photoStorage">Path for photo storage on Android</string>
+    <string name="SpeedForward">Minimal speed available forward direction</string>
+    <string name="SpeedBackward">Minimal speed available backward direction</string>
+    <string name="speedTurn">Speed to use when turning</string>
+    <string name="tonesList">List of tones</string>
+    <string name="cameraWidth"><![CDATA[Camera width (Video & photo)]]></string>
+    <string name="cameraHeight"><![CDATA[Camera height (Video & photo)]]></string>
+    <string name="cameraFps">Video stream FPS</string>
+    <string name="portNetwork">Server port</string>
+    <string name="ipNetwork">Server IP address</string>
+</resources>

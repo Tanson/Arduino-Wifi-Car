@@ -1,0 +1,15 @@
+F:\学习代码\MyCar\Car_PC\bin\Debug\Car_PC.exe
+F:\学习代码\MyCar\Car_PC\bin\Debug\Car_PC.pdb
+F:\学习代码\MyCar\Car_PC\obj\Debug\Car_PC.csprojResolveAssemblyReference.cache
+F:\学习代码\MyCar\Car_PC\obj\Debug\Car_PC.Form1.resources
+F:\学习代码\MyCar\Car_PC\obj\Debug\Car_PC.Properties.Resources.resources
+F:\学习代码\MyCar\Car_PC\obj\Debug\Car_PC.csproj.GenerateResource.Cache
+F:\学习代码\MyCar\Car_PC\obj\Debug\Car_PC.exe
+F:\学习代码\MyCar\Car_PC\obj\Debug\Car_PC.pdb
+F:\学习代码\MyCar\Car_PC\obj\Debug\Car_PC.UI.RecessEditorControl.resources
+F:\学习代码\MyCar\Car_PC\obj\Debug\Car_PC.Config.resources
+F:\学习代码\MyCar\Car_PC\bin\Debug\AForge.dll
+F:\学习代码\MyCar\Car_PC\bin\Debug\AForge.Video.dll
+F:\学习代码\MyCar\Car_PC\bin\Debug\AForge.xml
+F:\学习代码\MyCar\Car_PC\bin\Debug\AForge.Video.xml
+F:\学习代码\MyCar\Car_PC\bin\Debug\Car_PC.exe.config

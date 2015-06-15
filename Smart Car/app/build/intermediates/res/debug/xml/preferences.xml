@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="截图保存目录">
+    	<EditTextPreference android:key="photoStorage" android:title="保存的路径" android:defaultValue="/WCC"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="小车网络参数">
+        <EditTextPreference android:key="ipNetwork" android:title="小车IP地址" android:defaultValue="134.100.100.103"/>
+        <EditTextPreference android:key="portNetwork" android:title="小车控制端口" android:inputType="number" android:defaultValue="2001"/>
+        <EditTextPreference android:key="portCamera" android:title="小车视频端口" android:inputType="number" android:defaultValue="8083"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="小车动力参数">
+        <EditTextPreference android:key="SpeedForward" android:title="前进动力（最大255）" android:inputType="number" android:defaultValue="255"/>
+        <EditTextPreference android:key="SpeedBackward" android:title="后退动力（最大255）" android:inputType="number" android:defaultValue="255"/>
+        <EditTextPreference android:key="speedTurn" android:title="转弯动力（最大255）" android:inputType="number" android:defaultValue="200"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="视频质量设置">
+        <EditTextPreference android:key="cameraWidth" android:title="@string/cameraWidth" android:inputType="number" android:defaultValue="320"/>
+        <EditTextPreference android:key="cameraHeight" android:title="@string/cameraHeight" android:inputType="number" android:defaultValue="240"/>
+        <EditTextPreference android:key="cameraFps" android:title="@string/cameraFps" android:inputType="number" android:defaultValue="15"/>
+    </PreferenceCategory>
+<!--
+
+ <PreferenceCategory android:title="General">
+        <EditTextPreference android:key="speedAccelerationForward" android:title="@string/speedAccelerationForward" android:inputType="number" android:defaultValue="1"/>
+        <EditTextPreference android:key="speedAccelerationBackward" android:title="@string/speedAccelerationBackward" android:inputType="number" android:defaultValue="1"/>
+        <EditTextPreference android:key="speedDecelerationForward" android:title="@string/speedDecelerationForward" android:inputType="number" android:defaultValue="2"/>
+        <EditTextPreference android:key="speedDecelerationBackward" android:title="@string/speedDecelerationBackward" android:inputType="number" android:defaultValue="2"/>
+        <EditTextPreference android:key="speedDecTurnForward" android:title="@string/speedDecTurnForward" android:inputType="number" android:defaultValue="0"/>
+        <EditTextPreference android:key="speedDecTurnBackward" android:title="@string/speedDecTurnBackward" android:inputType="number" android:defaultValue="0"/>
+        <EditTextPreference android:key="minSpeedForward" android:title="@string/minSpeedForward" android:inputType="number" android:defaultValue="25"/>
+        <EditTextPreference android:key="maxSpeedForward" android:title="@string/maxSpeedForward" android:inputType="number" android:defaultValue="250"/>
+        <EditTextPreference android:key="minSpeedBackward" android:title="@string/minSpeedBackward" android:inputType="number" android:defaultValue="25"/>
+        <EditTextPreference android:key="maxSpeedBackward" android:title="@string/maxSpeedBackward" android:inputType="number" android:defaultValue="250"/>
+        <EditTextPreference android:key="speedTurnMotor" android:title="@string/speedTurnMotor" android:inputType="number" android:defaultValue="255"/>
+    </PreferenceCategory>
+-->
+
+
+</PreferenceScreen>
+<!-- From: file:/D:/Android/StudioProjects/Smart%20Car/app/src/main/res/xml/preferences.xml -->
