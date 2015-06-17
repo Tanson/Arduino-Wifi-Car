@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="D:\Android\StudioProjects\Smart Car\app\libs\jsch-0.1.50.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="44a3519bf9c56a54b44bffb8a781a77e37ed0396">
-        <dex dex="D:\Android\StudioProjects\Smart Car\app\build\intermediates\pre-dexed\release\jsch-0.1.50-4c6e8f3658f3fae2675ffe65ee9e03b46a5c0cff.jar" />
-    </item>
-    <item
         jar="D:\Android\AndroidSDK\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
         <dex dex="D:\Android\StudioProjects\Smart Car\app\build\intermediates\pre-dexed\release\support-v4-19.1.0-d6f6287bdf9f23821045e4badc048f905d2d7eaa.jar" />
+    </item>
+    <item
+        jar="D:\Android\StudioProjects\Smart Car\app\libs\jsch-0.1.50.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="44a3519bf9c56a54b44bffb8a781a77e37ed0396">
+        <dex dex="D:\Android\StudioProjects\Smart Car\app\build\intermediates\pre-dexed\release\jsch-0.1.50-4c6e8f3658f3fae2675ffe65ee9e03b46a5c0cff.jar" />
     </item>
 
 </items>

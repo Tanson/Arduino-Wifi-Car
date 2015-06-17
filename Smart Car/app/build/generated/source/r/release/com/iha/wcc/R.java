@@ -50,10 +50,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int round_button_red=0x7f020011;
         public static final int round_button_transparent=0x7f020012;
         public static final int round_button_white=0x7f020013;
-        public static final int rss_alt_32x32=0x7f020014;
-        public static final int selector_round_button_transparent=0x7f020015;
-        public static final int splash=0x7f020016;
-        public static final int sun_alt_fill_32x32=0x7f020017;
+        public static final int rss_32x32=0x7f020014;
+        public static final int rss_alt_32x32=0x7f020015;
+        public static final int selector_round_button_transparent=0x7f020016;
+        public static final int splash=0x7f020017;
+        public static final int sun_32x32=0x7f020018;
+        public static final int sun_alt_fill_32x32=0x7f020019;
     }
     public static final class id {
         public static final int LinearLayout01=0x7f0b0014;

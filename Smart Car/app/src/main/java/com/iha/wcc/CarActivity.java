@@ -1,14 +1,19 @@
 package com.iha.wcc;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
-
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import java.util.regex.MatchResult;
 import java.net.UnknownHostException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import android.os.Handler;
+import android.os.Message;
 import android.widget.ImageView;
 import com.iha.wcc.job.camera.MjpegVideoStreamTask;
 import com.iha.wcc.job.camera.MjpegView;
@@ -35,6 +40,7 @@ import android.widget.Toast;
 
 import com.iha.wcc.job.car.Camera;
 import com.iha.wcc.job.car.Car.Direction;
+import com.iha.wcc.job.car.CarInfo;
 import com.iha.wcc.job.car.Linino;
 
 import com.iha.wcc.job.car.Car;
@@ -77,7 +83,8 @@ public class CarActivity extends FragmentActivity {
      * Contains the values to write in the socket stream.
      */
     private OutputStream outputStreamSocket = null;
-
+    private InputStream inputStreamSocket = null;
+    Handler inHandler;
     /**
      * Socket connected to the Arduino.
      */
@@ -99,6 +106,7 @@ public class CarActivity extends FragmentActivity {
             try {
                 socket = new Socket(serverIpAddress, serverPort);
                 outputStreamSocket = socket.getOutputStream();
+                inputStreamSocket=socket.getInputStream();
             } catch (UnknownHostException e1) {
                 e1.printStackTrace();
                 stopProcessingSocket.set(true);
@@ -124,11 +132,30 @@ public class CarActivity extends FragmentActivity {
 
             try {
                 while(!stopProcessingSocket.get()){
+                    String line = "";
                     String val = queriesQueueSocket.take();
                     if(val != "-1"){
                         log("Sending value "+val);
                         outputStreamSocket.write((val + "\n").getBytes());
                     }
+
+                    Thread.sleep(50);
+                    byte[] temp = new byte[2048];
+                    int size =inputStreamSocket.read(temp);
+                    byte[] res = new byte[size];
+
+                    System.arraycopy(temp, 0, res, 0, size);
+                    char[] tChars=new char[size];
+                    for(int i=0;i<size;i++)
+                        tChars[i]=(char)res[i];
+                    StringBuffer  tStringBuf=new StringBuffer ();
+                    tStringBuf.append(tChars);
+                    line=tStringBuf.toString();
+
+                    Message msg = inHandler.obtainMessage();
+                    msg.obj = line;
+                    inHandler.sendMessage(msg);
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -138,6 +165,7 @@ public class CarActivity extends FragmentActivity {
                 try {
                     stopProcessingSocket.set(true);
                     if(outputStreamSocket != null) outputStreamSocket.close();
+                    if(inputStreamSocket != null) inputStreamSocket.close();
                     if(socket != null) socket.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -208,8 +236,44 @@ public class CarActivity extends FragmentActivity {
                 Linino.getNetworkIp(prefs),
                 Linino.getNetworkPort(prefs)
         );
-       this.initializeCamera(prefs);
+        this.initializeCamera(prefs);
+        inHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                try {
 
+                    if (msg.obj != null) {
+                        String s = msg.obj.toString().replace("\r","").replace("\n","");
+
+                        if (s.trim().length() > 0) {
+                            Pattern pattern = Pattern.compile(".*(\\d+,\\d+,\\d+,\\d+,\\d+,\\d+,\\d+,\\d+,\\d+,\\d+){1,}.*");
+
+                            Matcher matcher = pattern.matcher(s);
+                            if(matcher.matches()){
+                                String data="";
+                                matcher.matches();
+                                data=matcher.group(1);
+
+                                // String[] datas=s.split(",");
+                                CarInfo info=new CarInfo(data);
+                                if(info.LightStatus){
+                                    lightBtn.setImageDrawable(getResources().getDrawable(R.drawable.sun_32x32));
+                                }else {
+                                    lightBtn.setImageDrawable(getResources().getDrawable(R.drawable.sun_alt_fill_32x32));
+                                }
+                                if(info.RadarStatus){
+                                    radarBtn.setImageDrawable(getResources().getDrawable(R.drawable.rss_32x32));
+                                }else   {
+                                    radarBtn.setImageDrawable(getResources().getDrawable(R.drawable.rss_alt_32x32));
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception ee) {
+                    ee.printStackTrace();
+                }
+            }
+        };
 
     }
 
@@ -362,7 +426,7 @@ public class CarActivity extends FragmentActivity {
         this.goRightBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-               // if(event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE){
+                // if(event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE){
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     goRightBtn.getBackground().setAlpha(50);
                     goRight();
@@ -402,7 +466,7 @@ public class CarActivity extends FragmentActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN ) {
                     ytDownBtn.getBackground().setAlpha(50);
-                   doytDown();
+                    doytDown();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     // doStop();
                     ytDownBtn.getBackground().setAlpha(100);
@@ -470,7 +534,7 @@ public class CarActivity extends FragmentActivity {
         this.radarBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-               SwitchRadar();
+                SwitchRadar();
             }
         });
         /*
@@ -499,8 +563,8 @@ public class CarActivity extends FragmentActivity {
         this.honkBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-               // if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
-             if (event.getAction() == MotionEvent.ACTION_DOWN ) {
+                // if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN ) {
                     honkBtn.getBackground().setAlpha(50);
                     doHonk();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -622,7 +686,7 @@ public class CarActivity extends FragmentActivity {
         send("MD_SD "+Car.getSpeedTurn()+" "+Car.getSpeedTurn());
         send("MD_Zuo");
 
-      //  send(Car.calculateSpeed(Car.Direction.LEFT), Car.getSpeedTurnMotor()+"");
+        //  send(Car.calculateSpeed(Car.Direction.LEFT), Car.getSpeedTurnMotor()+"");
 
     }
 
@@ -634,7 +698,7 @@ public class CarActivity extends FragmentActivity {
         send("MD_SD "+Car.getSpeedTurn()+" "+Car.getSpeedTurn());
         send("MD_You");
 
-      //  send(Car.calculateSpeed(Car.Direction.RIGHT), Car.getSpeedTurnMotor()+"");
+        //  send(Car.calculateSpeed(Car.Direction.RIGHT), Car.getSpeedTurnMotor()+"");
     }
     private void doStop(){
         Car.lastSens= Direction.STOP;
@@ -700,7 +764,7 @@ public class CarActivity extends FragmentActivity {
 
     private void send(String action, String params){
 
-        this.send(action, params, true);
+    this.send(action, params, true);
     }
      */
     /**
@@ -712,16 +776,16 @@ public class CarActivity extends FragmentActivity {
      * @param updateView
 
     private void send(String action, String params, boolean updateView){
-        // Send the message in the socket pool.
-        queriesQueueSocket.offer(action + "/" + params);
+    // Send the message in the socket pool.
+    queriesQueueSocket.offer(action + "/" + params);
 
-        if(updateView){
-            // Update the displayed speed in the view.
-            this.updateViewSpeed(Car.speed);
+    if(updateView){
+    // Update the displayed speed in the view.
+    this.updateViewSpeed(Car.speed);
 
-            // Update the direction displayed on the view.
-            this.updateViewSens(Car.lastSens);
-        }
+    // Update the direction displayed on the view.
+    this.updateViewSens(Car.lastSens);
+    }
     }
      */
     /**
