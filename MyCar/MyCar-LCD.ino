@@ -33,7 +33,7 @@ Servo servoY;
 byte serialIn = 0;
 byte commandAvailable = false;
 String strReceived = "";
-//是否开启雷达，我的坏了。雷达部分已经注释掉。可自己启用
+//是否开启雷达。雷达默认关闭。可自己启用。雷达装在前面！！！
 byte radar = false;
 //是否开启灯光，完全没打算做。。懒，可自行增加LED1,LED2的口就是计划使用的接口
 byte light = false;
@@ -105,9 +105,13 @@ void loop()
 		if (distance <= 5 & distance > 1){
 			lcd.setCursor(0, 1);
 			lcd.println("Warning back");
+      leftspeed=255;
+      rightspeed=255;
 			hou();
 			delay(100);
 			ting();
+      leftspeed=0;
+      rightspeed=0;
 			distance = 0;
 		}
 	}

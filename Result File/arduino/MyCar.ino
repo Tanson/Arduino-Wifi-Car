@@ -33,7 +33,7 @@ Servo servoY;
 byte serialIn = 0;
 byte commandAvailable = false;
 String strReceived = "";
-//是否开启雷达，我的坏了。雷达部分已经注释掉。可自己启用
+//是否开启雷达
 byte radar = false;
 //是否开启灯光，完全没打算做。。懒，可自行增加LED1,LED2的口就是计划使用的接口
 byte light = false;
